@@ -1,31 +1,28 @@
 import pysam
 import numpy as np
 import pandas as pd
-import pyranges as pr
 from pathlib import Path
 
-def prepare_coverage_df(input_files, chromosome, region_start, region_stop):
+def prepare_coverage_df(input_files, chromosome, start, stop):
 
 	coverage_list = []
 
 	for bam_file in input_files:
-		local_coverage = extract_coverage(bam_file, chromosome, region_start, region_stop)
+		local_coverage = extract_coverage(bam_file, chromosome, start, stop)
 		coverage_list.append(local_coverage)
 
 	coverage_matrix = np.vstack(coverage_list)
 	sample_names = [Path(f).stem for f in input_files]
 
 	coverage_df = pd.DataFrame(coverage_matrix.T, columns = sample_names)
-	coverage_df['Position'] = np.arange(region_start, region_stop)
+	coverage_df['Position'] = np.arange(start, stop)
 	final_coverage = coverage_df.melt(id_vars='Position', var_name='Sample', value_name='Coverage')
 
 	return(final_coverage)
 
-def prepare_annotation_df(annotation, chromosome, region_start, region_stop):
+def prepare_annotation_df(gtf, chromosome, start, stop):
 
-	gtf = pr.read_gtf(annotation)
-
-	target_region = gtf[chromosome, region_start:region_stop]
+	target_region = gtf[chromosome, start:stop]
 
 	transcript = target_region [(target_region.Feature == 'transcript')]
 	exons = target_region [(target_region.Feature == 'exon')]
