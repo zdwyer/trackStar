@@ -48,3 +48,10 @@ def extract_coverage(bam_infile, chromosome, start, stop):
 	coverage = bam.count_coverage('chr%s' % chromosome, start, stop, read_callback='nofilter')
 	total_coverage = [sum(base) for base in zip(*coverage)]  
 	return total_coverage
+
+def prepare_output_filename(output_dir, output_name, output_format):
+	output_dir = Path(output_dir)
+	output_dir.mkdir(parents=True, exist_ok=True)
+	name = Path(output_name).stem
+	output_file = output_dir / f"{name}.{output_format}"
+	return(output_file)

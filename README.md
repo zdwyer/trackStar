@@ -139,7 +139,7 @@ Provide a gene identifier, which will be looked up in the GTF:
 
   * Axis reversal occurs after any region extension (`--extend-start`, `--extend-stop`)
 
-  	```bash
+	```bash
 	--reverse-strand
 	```
 
@@ -159,6 +159,65 @@ Provide a gene identifier, which will be looked up in the GTF:
     ```
 
     These adjustments are applied **before** strand reversal.
+
+------------------------------------------------------------------------
+
+#### Output Control
+
+------------------------------------------------------------------------
+
+##### `--output-dir` 
+
+  Controls the directory in which to save result.
+
+  * Default: current directory (`.`)
+
+  * Creates directory if it does not exist
+
+      ``` bash
+      --output-dir output/plots
+      ```
+
+------------------------------------------------------------------------
+
+##### `output-name`
+
+  Controls the output plot's filename (Default: plot).
+
+  * Do not include the extension in the filename.
+
+    ``` bash
+    --output-name myplot
+    ```
+
+------------------------------------------------------------------------
+
+##### `output-format`
+
+  Controls the output plot's format (Default: pdf).
+
+  * Options: pdf, png, svg
+
+    ``` bash
+    --output-format {pdf, png, svg}
+    ```
+------------------------------------------------------------------------
+
+##### `width`
+
+  Controls the output plot width in inches (Default: 4).
+
+------------------------------------------------------------------------
+
+##### `height`
+
+  Controls the output plot height in inches (Default: 6).
+
+------------------------------------------------------------------------
+
+##### `dpi`
+
+  Controls the output plot dots per inch (Default: 300).
 
 ------------------------------------------------------------------------
 

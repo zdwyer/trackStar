@@ -85,3 +85,13 @@ def annotation_track(transcript_df, exon_df, chromosome, start, stop, reverse_st
 		)
 
 	return p
+
+def finalize_plot(p, width, height, dpi):
+	final = (
+		p
+		+ theme(
+			figure_size=(width, height),
+			dpi = dpi
+		)
+	)
+	return(final)
