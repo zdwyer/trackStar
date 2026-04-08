@@ -93,11 +93,80 @@ Provide a gene identifier, which will be looked up in the GTF:
 - If multiple genes match the provided name/ID, the program will return an error.
 - If no matching gene is found, the program will also return an error.
 
+#### Plotting Arguments
+
+------------------------------------------------------------------------
+
+##### `--plots` 
+
+  Specify which tracks to include in the final output.
+
+  * `both` (*default*) - show coverage and annotation tracks stacked vertically
+
+  * `coverage-only` - show only the coverage track
+
+  * `annotation-only` - show only the annotation tarck
+
+    ```bash
+    --plots {both, coverage-only, annotation-only}
+    ```
+
+------------------------------------------------------------------------
+
+##### `--label-x-axis` 
+
+  Control which tracks display the x-axis (label, ticks, and values).
+
+  * `both` - both tracks include x-axis labels, ticks, and values
+
+  * `coverage-only` (*default*) - only the coverage track includes x-axis labels, ticks, and values
+
+  * `annotation-only` - only the annotation track includes x-axis labels, ticks, and values
+
+    ```bash
+    --label-x-axis {both, coverage-only, annotation-only}
+    ```
+
+------------------------------------------------------------------------
+
+##### `--reverse-strand`
+
+	Reverse the x-axis so genomic coordinates are displayed right-to-left.
+
+  * Useful for visualizing genes on the minus strand in a more intuitive orientation (5' → 3')
+
+  * Applies to both **coverage** and **annotation** tracks
+
+  * Axis reversal occurs after any region extension (`--extend-start`, `--extend-stop`)
+
+  	```bash
+	--reverse-strand
+	```
+
+------------------------------------------------------------------------
+
+##### `--extend-start` and `--extend-stop` 
+
+  Expand the plotted region upstream or downstream:
+
+  * `--extend-start` - subtracts bases from the start coordinate
+
+  * `--extend-stop` - adds bases to the stop coordinate
+
+    ```bash
+    --extend-start 1000
+    --extend-stop 1000
+    ```
+
+    These adjustments are applied **before** strand reversal.
+
+------------------------------------------------------------------------
+
 ## Example Commands
 
 ### Using coordinates
 ```bash
-python main.py --input sample.bam --annotation annotation.gtf --chromosome VII --start 364079 --end 366105
+python main.py --input sample.bam --annotation annotation.gtf --chromosome VII --start 364079 --stop 366105
 ```
 
 ### Using region string
